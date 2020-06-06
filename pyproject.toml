@@ -1,0 +1,28 @@
+[tool.poetry]
+name = "diffusor"
+version = "1.0.0"
+description = "A pure-python diffing utility using Google's diff-match-patch."
+authors = ["CobaltCore <cobaltcore@yandex.com>"]
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/kobaltcore/diffusor"
+homepage = "https://github.com/kobaltcore/diffusor"
+
+[tool.poetry.scripts]
+diffusor = "diffusor.diffusor:cli"
+
+[tool.poetry.dependencies]
+python = "^3.5"
+click = "^7.1.2"
+pyyaml = "^5.3.1"
+logzero = "^1.5.0"
+diff-match-patch = "^20181111"
+
+[tool.poetry.dev-dependencies]
+flake8 = "^3.7"
+pytest = "^5.1"
+codecov = "^2.0"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
