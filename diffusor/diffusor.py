@@ -14,7 +14,6 @@ import click
 
 
 class AliasedGroup(click.Group):
-
     def get_command(self, ctx, cmd_name):
         rv = click.Group.get_command(self, ctx, cmd_name)
         if rv is not None:
@@ -29,8 +28,7 @@ class AliasedGroup(click.Group):
 
 @click.group(cls=AliasedGroup)
 @click.pass_context
-@click.option("-d/-nd", "--debug/--no-debug", default=False,
-              help="Print debug information or only regular output")
+@click.option("-d", "--debug", is_flag=True, help="Print debug information if given")
 def cli(ctx, debug):
     """A pure-python diffing utility using Google's diff-match-patch.
 
@@ -62,10 +60,8 @@ def cli(ctx, debug):
 @click.pass_context
 @click.argument("original", type=click.File("r"))
 @click.argument("modified", type=click.File("r"))
-@click.option("-n", "--name", help="The filename to save with the patch",
-              default=None, type=str)
-@click.option("-o", "--output-file", help="The file to output to",
-              default=None, type=click.File("w"))
+@click.option("-n", "--name", help="The filename to save with the patch", default=None, type=str)
+@click.option("-o", "--output-file", help="The file to output to", default=None, type=click.File("w"))
 def diff(ctx, original, modified, name, output_file):
     dmp = diff_match_patch()
 
@@ -88,10 +84,8 @@ def diff(ctx, original, modified, name, output_file):
 @cli.command()
 @click.pass_context
 @click.argument("patch", type=click.File("r"))
-@click.option("-t", "--target-file", help="The file to apply the patches to",
-              default=None, type=click.File("r"))
-@click.option("-o", "--output-file", help="The file to output to",
-              default=None, type=click.File("w"))
+@click.option("-t", "--target-file", help="The file to apply the patches to", default=None, type=click.File("r"))
+@click.option("-o", "--output-file", help="The file to output to", default=None, type=click.File("w"))
 def apply(ctx, patch, target_file, output_file):
     dmp = diff_match_patch()
 
@@ -123,5 +117,5 @@ def apply(ctx, patch, target_file, output_file):
         click.echo(patched_text)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     cli()
