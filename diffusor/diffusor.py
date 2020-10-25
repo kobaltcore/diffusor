@@ -6,6 +6,7 @@ import logging
 import logzero
 from logzero import logger
 
+
 ### Diffing ###
 from diff_match_patch import diff_match_patch
 
@@ -60,8 +61,16 @@ def cli(ctx, debug):
 @click.pass_context
 @click.argument("original", type=click.File("r"))
 @click.argument("modified", type=click.File("r"))
-@click.option("-n", "--name", help="The filename to save with the patch", default=None, type=str)
-@click.option("-o", "--output-file", help="The file to output to", default=None, type=click.File("w"))
+@click.option(
+    "-n", "--name", help="The filename to save with the patch", default=None, type=str
+)
+@click.option(
+    "-o",
+    "--output-file",
+    help="The file to output to",
+    default=None,
+    type=click.File("w"),
+)
 def diff(ctx, original, modified, name, output_file):
     dmp = diff_match_patch()
 
@@ -84,8 +93,20 @@ def diff(ctx, original, modified, name, output_file):
 @cli.command()
 @click.pass_context
 @click.argument("patch", type=click.File("r"))
-@click.option("-t", "--target-file", help="The file to apply the patches to", default=None, type=click.File("r"))
-@click.option("-o", "--output-file", help="The file to output to", default=None, type=click.File("w"))
+@click.option(
+    "-t",
+    "--target-file",
+    help="The file to apply the patches to",
+    default=None,
+    type=click.File("r"),
+)
+@click.option(
+    "-o",
+    "--output-file",
+    help="The file to output to",
+    default=None,
+    type=click.File("w"),
+)
 def apply(ctx, patch, target_file, output_file):
     dmp = diff_match_patch()
 
